@@ -325,6 +325,13 @@
           this.parentNode.removeTab(this.value);
         ]]></body>
       </method>
+      <method name="editGroupTitle">
+        <body><![CDATA[
+          this.mDeck.selectedIndex = 0;
+          this.mTextbox.value = this.label;
+          this.mTextbox.focus();
+        ]]></body>
+      </method>
     </implementation>
     <handlers>
       <handler event="mouseover">
@@ -355,9 +362,7 @@
         this.style.MozUserFocus = '';
       </handler>
       <handler event="dblclick" button="0"><![CDATA[
-        this.mDeck.selectedIndex = 0;
-        this.mTextbox.value = this.label;
-        this.mTextbox.focus();
+        this.editGroupTitle();
       ]]></handler>
       <handler event="keypress"><![CDATA[
         if (this.mDeck.selectedIndex == 1)
