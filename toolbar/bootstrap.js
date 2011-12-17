@@ -19,8 +19,8 @@ function shutdown (aData, aReasoon) {
   if (Services.vc.compare(Services.appinfo.platformVersion, "10.0") < 0)
     Cm.removeBootstrappedManifestLocation(aData.installPath);
 
-  if (PANO_TOOLBAR.destory) {
-    PANO_TOOLBAR.destory();
+  if (PANO_TOOLBAR.destroy) {
+    PANO_TOOLBAR.destroy();
   }
   PANO_TOOLBAR = null;
 }

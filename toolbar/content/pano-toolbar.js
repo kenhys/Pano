@@ -101,7 +101,7 @@ function getWindows (type) {
 })();
 
 
-function destory () {
+function destroy () {
   SSS.unregisterSheet(Services.io.newURI("chrome://pano-toolbar/skin/pano-toolbar.css", null, null),
                       SSS.AGENT_SHEET);
   Services.ww.unregisterNotification(windowObserver);
