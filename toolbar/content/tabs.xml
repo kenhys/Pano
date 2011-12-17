@@ -20,7 +20,7 @@
       <xul:arrowscrollbox anonid="arrowscrollbox" orient="horizontal" flex="1"
                           style="min-width: 1px;"
                           clicktoscroll="true"
-                          class="tabbrowser-arrowscrollbox">
+                          class="tabgroup-arrowscrollbox">
         <children includes="tab"/>
         <children/>
         <xul:toolbarbutton class="tabs-newtab-button"
@@ -378,6 +378,24 @@
             this.label = label;
             TabView._window.GroupItems.groupItem(this.value).setTitle(label);
         }
+      ]]></handler>
+    </handlers>
+  </binding>
+  <binding id="tabgroup-arrowscrollbox" extends="chrome://global/content/bindings/scrollbox.xml#arrowscrollbox-clicktoscroll">
+    <handlers>
+      <handler event="underflow" phase="capturing"><![CDATA[
+        if (event.detail == 0)
+          return; // Ignore vertical events
+
+        var tabs = document.getBindingParent(this);
+        tabs.removeAttribute("overflow");
+      ]]></handler>
+      <handler event="overflow"><![CDATA[
+        if (event.detail == 0)
+          return; // Ignore vertical events
+
+        var tabs = document.getBindingParent(this);
+        tabs.setAttribute("overflow", "true");
       ]]></handler>
     </handlers>
   </binding>
