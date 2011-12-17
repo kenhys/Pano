@@ -6,7 +6,7 @@
 .pano-tabgroup-tab {
   min-width: 80px;
   -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-tab");
-  -moz-appearance: none !important;
+  -moz-appearance: none;
   background: -moz-linear-gradient(bottom, rgba(10%,10%,10%,.4) 1px, transparent 1px),
               -moz-linear-gradient(transparent, hsla(0,0%,45%,.1) 1px, hsla(0,0%,32%,.2) 80%, hsla(0,0%,0%,.2)),
               -moz-linear-gradient(-moz-dialog, -moz-dialog);
@@ -14,7 +14,7 @@
   background-position: 1px 2px;
   background-size: -moz-calc(100% - 2px) -moz-calc(100% - 2px);
   background-repeat: no-repeat;
-  margin: 0 !important;
+  margin: 0;
   padding: 2px 0 4px;
   -moz-border-image: url(chrome://browser/skin/tabbrowser/tab.png) 4 3 0 / 4px 3px 0 repeat stretch;
   border-radius: 0;
@@ -44,10 +44,10 @@
 }
 
 .tabgroup-closebutton {
-  -moz-appearance: none !important;
+  -moz-appearance: none;
   -moz-image-region: rect(0, 64px, 16px, 48px);
-  border: none !important;
-  padding: 0 !important;
+  border: none;
+  padding: 0;
   list-style-image: url("chrome://global/skin/icons/close.png");
 }
 .tabgroup-closebutton[selected=true] {
@@ -71,14 +71,14 @@
 }
 
 .tabgroup-arrowscrollbox {
-  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-arrowscrollbox") !important;
+  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-arrowscrollbox");
 }
 .tabgroup-arrowscrollbox > .scrollbutton-up,
 .tabgroup-arrowscrollbox > .scrollbutton-down {
-  list-style-image: url("chrome://browser/skin/tabbrowser/tab-arrow-left.png") !important;
-  margin: 0 !important;
-  padding-right: 2px !important;
-  border-right: 2px solid transparent !important;
+  list-style-image: url("chrome://browser/skin/tabbrowser/tab-arrow-left.png");
+  margin: 0;
+  padding-right: 2px;
+  border-right: 2px solid transparent;
   background-orign: border-box;
 }
 .tabgroup-arrowscrollbox > .scrollbutton-up:-moz-locale-dir(rtl),
@@ -92,9 +92,9 @@
 #PanoTabGroupToolbar .toolbarbutton-1,
 .tabgroup-arrowscrollbox > .scrollbutton-up,
 .tabgroup-arrowscrollbox > .scrollbutton-down {
-  -moz-appearance: none !important;
-  border-style: none !important;
-  padding: 0 3px !important;
+  -moz-appearance: none;
+  border-style: none;
+  padding: 0 3px;
 }
 
 #PanoTabGroupToolbar .toolbarbutton-1:not([disabled]):hover,
@@ -109,7 +109,7 @@
 }
 
 #PanoToolbar_NewGroupButton {
-  list-style-image: url("chrome://browser/skin/tabbrowser/newtab.png") !important;
+  list-style-image: url("chrome://browser/skin/tabbrowser/newtab.png");
 }
 
 #PanoTabGroupTabs:not([overflow=true]) + #PanoToolbar_NewGroupButton,
@@ -118,6 +118,7 @@
 }
 
 #PanoTabGroupToolbar {
+  visibility: visible !important;
   -moz-box-ordinal-group: 95;
 }
 
@@ -125,16 +126,12 @@
   -moz-box-ordinal-group: 5 !important;
 }
 
-#main-window[disablechrome] #navigator-toolbox[tabsontop="true"] > #PanoTabGroupToolbar {
-  visibility: visible !important;
-}
-
 
 /* lwtheme */
 
 .pano-tabgroup-tab:-moz-lwtheme {
-  color: inherit !important;
-  background-color: transparent !important;
+  color: inherit;
+  background-color: transparent;
 }
 .pano-tabgroup-tab:-moz-lwtheme-brighttext {
   list-style-image: url("chrome://browser/skin/tabview/tabview-inverted.png");
@@ -156,9 +153,9 @@
 }
 .tabgroup-arrowscrollbox > .scrollbutton-up:-moz-lwtheme-brighttext,
 .tabgroup-arrowscrollbox > .scrollbutton-down:-moz-lwtheme-brighttext {
-  list-style-image: url(chrome://browser/skin/tabbrowser/tab-arrow-left-inverted.png) !important;
+  list-style-image: url(chrome://browser/skin/tabbrowser/tab-arrow-left-inverted.png);
 }
 #PanoToolbar_NewGroupButton:-moz-lwtheme-brighttext {
-  list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png) !important;
+  list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);
 }
 

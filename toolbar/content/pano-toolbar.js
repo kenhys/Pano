@@ -1,16 +1,23 @@
 
-const SSS = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
-
 var toolbarXML = null;
 
 function PanoToolbar(win) {
   this.window = win;
+  this.xmlStyleSheet = null;
   this.init();
 }
 PanoToolbar.prototype = {
   constructor: PanoToolbar,
   init: function PT_init () {
     var doc = this.window.document;
+
+    try {
+    this.xmlStyleSheet = doc.createProcessingInstruction("xml-stylesheet", 'href="chrome://pano-toolbar/skin/pano-toolbar.css" type="text/css"');
+    doc.insertBefore(this.xmlStyleSheet, doc.firstChild);
+    } catch(e) {
+      Cu.reportError(e);
+    }
+
     var gNaviToolbox = doc.getElementById("navigator-toolbox");
     var range = doc.createRange();
     range.selectNodeContents(gNaviToolbox);
@@ -25,6 +32,8 @@ PanoToolbar.prototype = {
     if (toolbar) {
       toolbar.parentNode.removeChild(toolbar);
     }
+
+    doc.removeChild(this.xmlStyleSheet);
   },
 };
 
@@ -64,9 +73,6 @@ function getWindows (type) {
 }
 
 (function init () {
-  SSS.loadAndRegisterSheet(Services.io.newURI("chrome://pano-toolbar/skin/pano-toolbar.css", null, null),
-                           SSS.AGENT_SHEET);
-
   var bundle = Services.strings.createBundle("chrome://pano-toolbar/locale/toolbar.properties")
 
   var xmlSettings = XML.settings();
@@ -102,8 +108,6 @@ function getWindows (type) {
 
 
 function destroy () {
-  SSS.unregisterSheet(Services.io.newURI("chrome://pano-toolbar/skin/pano-toolbar.css", null, null),
-                      SSS.AGENT_SHEET);
   Services.ww.unregisterNotification(windowObserver);
 
   for (let win in Iterator(getWindows())) {
