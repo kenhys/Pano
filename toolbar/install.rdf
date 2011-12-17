@@ -8,6 +8,7 @@
     <em:creator>teramako</em:creator>
     <em:description>Show TabGroup Toolbar</em:description>
     <em:bootstrap>true</em:bootstrap>
+    <em:unpack>true</em:unpack>
 
     <em:homepageURL>https://github.com/teramako/Pano</em:homepageURL>
     <em:iconURL>chrome://pano-toolbar/content/pano-toolbar.svg</em:iconURL>
