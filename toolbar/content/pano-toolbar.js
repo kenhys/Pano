@@ -85,6 +85,10 @@ function getWindows (type) {
     <tabs id="PanoTabGroupTabs" flex="1" setfocus="false">
       <tab class="pano-tabgroup-tab"/>
     </tabs>
+    <toolbarbutton id="PanoToolbar_NewGroupButton"
+                   class="toolbarbutton-1"
+                   oncommand="this.previousElementSibling.newGroup();"
+                   tooltiptext={bundle.GetStringFromName("newGroup.tooltip")} />
   </toolbar>.toXMLString();
   XML.setSettings(xmlSettings);
 

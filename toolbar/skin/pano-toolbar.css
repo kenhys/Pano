@@ -44,9 +44,6 @@
 }
 
 .tabgroup-closebutton {
-  /*
-  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-closebutton");
-  */
   -moz-appearance: none !important;
   -moz-image-region: rect(0, 64px, 16px, 48px);
   border: none !important;
@@ -75,6 +72,15 @@
 
 .tabgroup-arrowscrollbox {
   -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-arrowscrollbox") !important;
+}
+
+#PanoToolbar_NewGroupButton {
+  list-style-image: url("chrome://browser/skin/tabbrowser/newtab.png") !important;
+}
+
+#PanoTabGroupTabs:not([overflow=true]) + #PanoToolbar_NewGroupButton,
+#PanoTabGroupTabs[overflow=true] > .tabgroup-arrowscrollbox > .tabs-newtab-button {
+  visibility: collapse;
 }
 
 #PanoTabGroupToolbar {

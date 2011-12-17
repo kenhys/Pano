@@ -167,8 +167,12 @@
       </method>
       <method name="newGroup">
         <body><![CDATA[
+          var self = this;
           TabView._initFrame(function(){
-            TabView._window.GroupItems.newGroup().newTab();
+            var group = TabView._window.GroupItems.newGroup();
+            var tab = self.addGroup(group);
+            group.newTab();
+            self.selectedItem = tab;
           });
         ]]></body>
       </method>
@@ -187,11 +191,12 @@
             if (nextTab)
               this.selectedItem = nextTab;
           }
-          this.closeGroup(id);
           if (this.childNodes.length > 1)
             this.removeChild(tab);
           else
             this.selectedIndex = 0;
+
+          this.closeGroup(id);
         ]]></body>
       </method>
       <method name="closeGroup">
