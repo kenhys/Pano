@@ -159,6 +159,9 @@
       <method name="addGroup">
         <parameter name="group"/>
         <body><![CDATA[
+          if (!group || this.getItemFromGroupId(group.id))
+            return;
+
           var tab = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "tab");
           this.setGroup(tab, group);
           tab.setAttribute("class", "pano-tabgroup-tab");
@@ -276,8 +279,6 @@
           var item = this.getItemFromGroupId(group.id);
           if (item) {
             this.selectedItem = item;
-          } else {
-            this.addGroup(group);
           }
         ]]></body>
       </method>
