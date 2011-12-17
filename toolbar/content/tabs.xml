@@ -32,7 +32,7 @@
     </content>
     <implementation implements="nsIDOMEventListener">
       <constructor><![CDATA[
-        TabView._initFrame(this.rebuild.bind(this));
+        this.rebuild();
 
         for (let [, type] in Iterator(["tabviewhidden","TabGroupAdded","TabGroupClose","TabSelect","TabGroupTitleChanged"])) {
           window.addEventListener(type, this, false);
@@ -47,6 +47,10 @@
 
       <field name="mScrollBox">
         document.getAnonymousElementByAttribute(this, "anonid", "arrowscrollbox");
+      </field>
+
+      <field name="mSessionStore">
+        Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
       </field>
 
       <property name="selectedIndex">
@@ -73,21 +77,8 @@
 
             this.mScrollBox.ensureElementIsVisible(tab);
 
-            if (TabView._window) {
-              let tabViewWindow = TabView._window;
-              var group = tabViewWindow.GroupItems.groupItem(tab.value);
-              if (tabViewWindow.GroupItems._activeGroupItem !== group) {
-                tabViewWindow.UI.setActive(group, { dontSetActiveTabInGroup: true });
-                if (!gBrowser.selectedTab.pinned) {
-                  let item = group.getActiveTab() || group._children[0];
-                  gBrowser.mTabContainer.selectedIndex = item.tab._tPos;
-                } else {
-                  tabViewWindow.UI.onTabSelect(gBrowser.selectedTab);
-                }
-              }
-            }
-
             if (!alreadySelected) {
+              this.selectBrowserTab(tab.value);
               // Fire an onselect event for the tabs element.
               var event = document.createEvent('Events');
               event.initEvent('select', true, true);
@@ -97,32 +88,61 @@
           return val;
         ]]></setter>
       </property>
+      <method name="selectBrowserTab">
+        <parameter name="groupId"/>
+        <body><![CDATA[
+          if (!groupId)
+            return;
+
+          TabView._initFrame(function() {
+            var win = TabView._window;
+            var group = win.GroupItems.groupItem(groupId);
+            if (win.GroupItems._activeGroupItem != group) {
+              win.UI.setActive(group, { dontSetActiveTabInGroup: true });
+              let selectedTab = gBrowser.selectedTab;
+              if (!selectedTab.pinned) {
+                let item = group.getActiveTab() || group._children[0];
+                gBrowser.mTabContainer.selectedIndex = item.tab._tPos;
+              } else {
+                win.UI.onTabSelect(selectedTab);
+              }
+            }
+          });
+        ]]></body>
+      </method>
       <method name="rebuild">
         <body><![CDATA[
-          var win = TabView._window,
-              self = this;
-          if (!win)
-            return;
+          if ("__SSi" in window) {
+            let groupData = [data for ([, data] in Iterator(JSON.parse(this.mSessionStore.getWindowValue(window, "tabview-group"))))];
+            let groupsData = JSON.parse(this.mSessionStore.getWindowValue(window, "tabview-groups"));
 
-          if (win.TabItems.reconnectingPaused()) {
-            window.addEventListener("SSWindowStateReady", function PT_onSSWindowStateReady (aEvent) {
-              window.removeEventListener(aEvent.type, PT_onSSWindowStateReady, false);
-              self.rebuild();
-            }, false);
-            return;
-          }
-          while (this.childNodes.length > 1) {
-            this.removeChild(self.lastChild);
-          }
-          var groupItems = win.GroupItems.groupItems;
-          this.setGroup(this.childNodes[0], groupItems[0]);
-          if (groupItems[0] === win.GroupItems._activeGroupItem)
-            this.selectedIndex = 0;
+            while (this.childNodes.length > 1) {
+              this.removeChild(this.lastChild);
+            }
 
-          for (let i = 1, len = groupItems.length; i < len; ++i) {
-            this.addGroup(groupItems[i]);
+            this.setGroup(this.childNodes[0], groupData[0]);
+            if (groupData[0].id == groupsData.activeGroupId)
+              this.selectedIndex = 0;
+
+            for (let i = 1, len = groupData.length; i < len; ++i) {
+              this.addGroup(groupData[i]);
+              if (groupData[i].id == groupsData.activeGroupId)
+                this.selectedIndex = i;
+            }
+            this.mScrollBox.ensureElementIsVisible(this.selectedItem);
+          } else {
+            let self = this;
+            var OBS = {
+              observe: function (aSubject, aTopic, aData) {
+                Services.obs.removeObserver(this, "sessionstore-windows-restored");
+                if (aTopic === "sessionstore-windows-restored") {
+                  self.rebuild();
+                }
+              },
+              QueryInterface: XPCOMUtils.generateQI(["nsIObserver","nsISupportsWeakReference"]),
+            };
+            Services.obs.addObserver(OBS, "sessionstore-windows-restored", true);
           }
-          this.mScrollBox.ensureElementIsVisible(this.selectedItem);
         ]]></body>
       </method>
       <method name="setGroup">
@@ -142,15 +162,45 @@
           var tab = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "tab");
           this.setGroup(tab, group);
           tab.setAttribute("class", "pano-tabgroup-tab");
-          this.appendChild(tab);
-          if (TabView._window && TabView._window.GroupItems._activeGroupItem.id == group.id)
-            this.selectedItem = tab;
+          return this.appendChild(tab);
         ]]></body>
       </method>
       <method name="newGroup">
         <body><![CDATA[
           TabView._initFrame(function(){
             TabView._window.GroupItems.newGroup().newTab();
+          });
+        ]]></body>
+      </method>
+      <method name="removeTab">
+        <parameter name="id"/>
+        <body><![CDATA[
+          if (!id)
+            return;
+
+          var tab = this.getItemFromGroupId(id);
+          if(!tab)
+            return;
+
+          if (tab.selected) {
+            let nextTab = tab.nextElementSibling || tab.previousElementSibling;
+            if (nextTab)
+              this.selectedItem = nextTab;
+          }
+          this.closeGroup(id);
+          if (this.childNodes.length > 1)
+            this.removeChild(tab);
+          else
+            this.selectedIndex = 0;
+        ]]></body>
+      </method>
+      <method name="closeGroup">
+        <parameter name="id"/>
+        <body><![CDATA[
+          TabView._initFrame(function(){
+            var GI = TabView._window.GroupItems;
+            var group = GI.groupItem(id);
+            group.closeHidden();
           });
         ]]></body>
       </method>
@@ -204,12 +254,7 @@
         <parameter name="aEvent"/>
         <body><![CDATA[
           var groupId = aEvent.detail;
-          for (let i = 0, len = this.childNodes.length; i < len; ++i) {
-            if (this.childNodes[i].value == groupId) {
-              this.removeItemAt(i);
-              return;
-            }
-          }
+          this.removeTab(groupId);
         ]]></body>
       </method>
       <method name="onTabSelect">
@@ -277,16 +322,7 @@
         <parameter name="aEvent"/>
         <body><![CDATA[
           aEvent.stopPropagation();
-          if (this.selected) {
-            let tab = this.nextElementSibling || this.previousElementSibling;
-            if (tab) {
-              this.parentNode.selectedItem = tab;
-            }
-          }
-          var id = this.value;
-          var GI = TabView._window.GroupItems;
-          var group = GI.groupItem(id);
-          group.closeHidden();
+          this.parentNode.removeTab(this.value);
         ]]></body>
       </method>
     </implementation>
