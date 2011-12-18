@@ -2,4 +2,5 @@ content pano-toolbar content/
 locale pano-toolbar en-US locale/en-US/
 locale pano-toolbar ja    locale/ja/
 skin pano-toolbar classic/1.0 skin/
+override chrome://pano-toolbar/skin/pano-toolbar.css chrome://pano-toolbar/skin/pano-toolbar.darwin.css os=Darwin
 

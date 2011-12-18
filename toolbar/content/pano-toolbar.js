@@ -92,7 +92,7 @@ function getWindows (type) {
       <tab class="pano-tabgroup-tab"/>
     </tabs>
     <toolbarbutton id="PanoToolbar_NewGroupButton"
-                   class="toolbarbutton-1"
+                   class="toolbarbutton-1 tabs-newtab-button"
                    oncommand="this.previousElementSibling.newGroup();"
                    tooltiptext={bundle.GetStringFromName("newGroup.tooltip")} />
   </toolbar>.toXMLString();

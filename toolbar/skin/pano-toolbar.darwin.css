@@ -1,0 +1,211 @@
+
+#PanoTabGroupToolbar {
+  -moz-box-ordinal-group: 95;
+  -moz-box-align: stretch;
+  padding: 0 0 2px 0 !important;
+}
+
+#navigator-toolbox[tabsontop=true] > #PanoTabGroupToolbar {
+  -moz-box-ordinal-group: 5 !important;
+}
+
+#PanoTabGroupTabs {
+  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-tabs");
+  -moz-box-align: stretch;
+  height: 26px;
+}
+
+/* browser.css #1566 */
+.pano-tabgroup-tab,
+.tabgroup-closebutton {
+    -moz-appearance: none;
+    font: message-box;
+    font-weight: bold;
+    text-shadow: 0 1px rgba(255,255,255,.4);
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: center;
+    -moz-box-align: stretch;
+}
+/* browser.css #27 */
+.pano-tabgroup-tab {
+  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-tab");
+  -moz-box-flex: 100;
+  max-width: 250px;
+  min-width: 100px;
+}
+/* browser.css #1741 */
+.pano-tabgroup-tab:not([selected=true]):not(:hover):not(-moz-lwtheme) {
+  color: #222;
+}
+
+/* browser.css #1580 */
+.pano-tabgroup-tab > .tab-stack > .tab-background {
+  margin-top: 3px;
+}
+.pano-tabgroup-tab > .tab-stack > .tab-background:not([selected=true]):not(:-moz-lwtheme) {
+  margin-bottom: 2px;
+}
+
+.pano-tabgroup-tab > .tab-stack > .tab-content {
+  padding-top: 2px;
+}
+
+/* browser.css #1635 */
+.pano-tabgroup-tab .tab-background-start:-moz-locale-dir(ltr),
+.pano-tabgroup-tab .tab-background-end:-moz-locale-dir(rtl) {
+  mask: url(chrome://browser/content/browser.xul#pinstripe-tab-ontop-left-curve-mask);
+}
+.pano-tabgroup-tab .tab-background-end:-moz-locale-dir(ltr),
+.pano-tabgroup-tab .tab-background-start:-moz-locale-dir(rtl) {
+  mask: url(chrome://browser/content/browser.xul#pinstripe-tab-ontop-right-curve-mask);
+}
+/* browser.css #1691 */
+.pano-tabgroup-tab > .tab-stack > .tab-content,
+.tabgroup-arrowscrollbox > .tabs-newtab-button > .toolbarbutton-icon {
+  -moz-border-image: url(chrome://browser/skin/tabbrowser/tab-top-normal-active.png) 0 11 repeat stretch;
+}
+.pano-tabgroup-tab:hover > .tab-stack > .tab-content:not([selected="true"]),
+.tabgroup-arrowscrollbox > .tabs-newtab-button:hover > .toolbarbutton-icon {
+  -moz-border-image: url(chrome://browser/skin/tabbrowser/tab-top-hover-active.png) 0 11 repeat stretch;
+}
+.pano-tabgroup-tab > .tab-stack > .tab-content[selected="true"] {
+  -moz-border-image: url(chrome://browser/skin/tabbrowser/tab-top-selected-active.png) 0 11 repeat stretch;
+}
+
+/* browser.css #1843 */
+.tabgroup-closebutton > .toolbarbutton-icon {
+  -moz-margin-end: 0px !important;
+}
+.tabgroup-closebutton {
+  pointer-events: auto;
+  list-style-image: url("chrome://global/skin/icons/close.png");
+  -moz-appearance: none;
+  border: none !important;
+  padding: 0;
+  margin: 0;
+  background: none;
+  cursor: default;
+  -moz-image-region: rect(0, 16px, 16px, 0px);
+}
+.tabgroup-closebutton:hover {
+  -moz-image-region: rect(0, 32px, 16px, 16px);
+}
+.tabgroup-closebutton:hover:active {
+  -moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
+
+.tabgroup-title-textbox {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tabgroup-arrowscrollbox {
+  -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-arrowscrollbox");
+}
+.tabgroup-arrowscrollbox > .arrowscrollbox-scrollbox {
+  -moz-padding-start: 5px;
+  -moz-padding-end: 4px;
+}
+.tabgroup-arrowscrollbox > .arrowscrollbox-scrollbox:not(:-moz-lwtheme) {
+  margin-bottom: -2px;
+}
+.tabgroup-arrowscrollbox > .tabs-newtab-button > .toolbarbutton-icon {
+  padding: 4px 0 2px;
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up,
+.tabgroup-arrowscrollbox > .scrollbutton-down {
+  -moz-image-region: rect(0, 11px, 17px, 0);
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up:-moz-locale-dir(ltr),
+.tabgroup-arrowscrollbox > .scrollbutton-down:-moz-locale-dir(rtl) {
+  list-style-image: url("chrome://browser/skin/tabbrowser/tab-arrow-left.png");
+}
+.tabgroup-arrowscrollbox > .scrollbutton-down:-moz-locale-dir(ltr),
+.tabgroup-arrowscrollbox > .scrollbutton-up:-moz-locale-dir(rtl) {
+  list-style-image: url("chrome://browser/skin/tabbrowser/tab-arrow-right.png");
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up:hover,
+.tabgroup-arrowscrollbox > .scrollbutton-down:hover {
+  -moz-image-region: rect(0, 22px, 17px, 11px);
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up:hover:active,
+.tabgroup-arrowscrollbox > .scrollbutton-down:hover:active {
+  -moz-image-region: rect(0, 44px, 17px, 33px);
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up:not([disabled]):-moz-locale-dir(ltr),
+.tabgroup-arrowscrollbox > .scrollbutton-down:not([disabled]):-moz-locale-dir(rtl) {
+  -moz-border-image: url("chrome://browser/skin/tabbrowser/tab-overflow-border.png") 0 2 0 2 / 0 2px 0 0;
+}
+.tabgroup-arrowscrollbox > .scrollbutton-down:not([disabled]):-moz-locale-dir(ltr),
+.tabgroup-arrowscrollbox > .scrollbutton-up:not([disabled]):-moz-locale-dir(rtl) {
+  -moz-border-image: url("chrome://browser/skin/tabbrowser/tab-overflow-border.png") 0 2 0 2 / 0 0 0 2px;
+}
+#PanoTabGroupToolbar .toolbarbutton-1,
+.tabgroup-arrowscrollbox > .scrollbutton-up,
+.tabgroup-arrowscrollbox > .scrollbutton-down {
+  -moz-appearance: none;
+  margin: 0;
+  padding: 0 1px;
+}
+
+#PanoTabGroupToolbar .toolbarbutton-1:not([disabled]):hover,
+.tabgroup-arrowscrollbox > .scrollbutton-up:not([disabled]):hover,
+.tabgroup-arrowscrollbox > .scrollbutton-down:not([disabled]):hover {
+  background-image: -moz-linear-gradient(transparent, rgba(0,0,0,.15)) !important;
+}
+#PanoTabGroupToolbar .toolbarbutton-1:not([disabled]):hover:active,
+.tabgroup-arrowscrollbox > .scrollbutton-up:not([disabled]):hover:active,
+.tabgroup-arrowscrollbox > .scrollbutton-down:not([disabled]):hover:active {
+  background-image: -moz-linear-gradient(transparent, rgba(0,0,0,.3)) !important;
+}
+
+#PanoToolbar_NewGroupButton {
+  list-style-image: url("chrome://browser/skin/tabbrowser/newtab.png");
+  -moz-image-region: rect(0, 18px, 20px, 0);
+}
+
+#PanoTabGroupTabs:not([overflow=true]) + #PanoToolbar_NewGroupButton,
+#PanoTabGroupTabs[overflow=true] > .tabgroup-arrowscrollbox > .tabs-newtab-button {
+  visibility: collapse;
+}
+
+
+/* lwtheme */
+
+.pano-tabgroup-tab:-moz-lwtheme {
+  color: inherit;
+  text-shadow: inherit;
+  background-color: transparent;
+}
+.pano-tabgroup-tab:-moz-lwtheme-brighttext {
+  list-style-image: url("chrome://browser/skin/tabview/tabview-inverted.png");
+}
+.pano-tabgroup-tab[selected=true]:-moz-lwtheme {
+  background-image: -moz-linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.5) 50%);
+}
+.pano-tabgroup-tab:-moz-lwtheme-brighttext:not([selected=true]) {
+  background-image: -moz-linear-gradient(hsla(0,0%,40%,.6), hsla(0,0%,30%,.6) 80%);
+}
+.pano-tabgroup-tab:-moz-lwtheme-brighttext:not([selected=true]):hover {
+  background-image: -moz-linear-gradient(hsla(0,0%,60%,.6), hsla(0,0%,45%,.6) 80%);
+}
+.pano-tabgroup-tab:-moz-lwtheme-darktext:not([selected=true]) {
+  background-image: -moz-linear-gradient(hsla(0,0%,60%,.5), hsla(0,0%,45%,.5) 80%);
+}
+.pano-tabgroup-tab:-moz-lwtheme-darktext:not([selected=true]):hover {
+  background-image: -moz-linear-gradient(hsla(0,0%,80%,.5), hsla(0,0%,60%,.5) 80%);
+}
+.tabgroup-arrowscrollbox > .scrollbutton-up:-moz-lwtheme-brighttext,
+.tabgroup-arrowscrollbox > .scrollbutton-down:-moz-lwtheme-brighttext {
+  list-style-image: url(chrome://browser/skin/tabbrowser/tab-arrow-left-inverted.png);
+}
+#PanoToolbar_NewGroupButton:-moz-lwtheme-brighttext {
+  list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);
+}
+
