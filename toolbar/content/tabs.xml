@@ -306,7 +306,7 @@
           <xul:hbox xbl:inherits="selected" class="tab-background-end"/>
         </xul:hbox>
         <xul:hbox class="tab-content" xbl:inherits="align,dir,pack,orient,selected" flex="1">
-          <xul:image class="tab-icon-image"
+          <xul:image class="tabgroup-icon-image"
                      xbl:inherits="validate,src=image"
                      role="presentation"/>
           <xul:deck anonid="title-deck" selectedIndex="1" flex="1">

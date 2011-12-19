@@ -28,6 +28,10 @@
     text-align: center;
     -moz-box-align: stretch;
 }
+.pano-tabgroup-tab .tabgroup-icon-image {
+  list-style-image: url("chrome://browser/skin/tabview/tabview.png");
+  -moz-image-region: rect(0, 40px, 20px, 20px);
+}
 /* browser.css #27 */
 .pano-tabgroup-tab {
   -moz-binding: url("chrome://pano-toolbar/content/tabs.xml#tabgroup-tab");
@@ -36,7 +40,7 @@
   min-width: 100px;
 }
 /* browser.css #1741 */
-.pano-tabgroup-tab:not([selected=true]):not(:hover):not(-moz-lwtheme) {
+.pano-tabgroup-tab:not([selected=true]):not(:hover):not(:-moz-lwtheme) {
   color: #222;
 }
 
@@ -181,29 +185,16 @@
 .pano-tabgroup-tab:-moz-lwtheme {
   color: inherit;
   text-shadow: inherit;
-  background-color: transparent;
 }
-.pano-tabgroup-tab:-moz-lwtheme-brighttext {
-  list-style-image: url("chrome://browser/skin/tabview/tabview-inverted.png");
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-start:-moz-lwtheme-brighttext:not([selected="true"]),
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-middle:-moz-lwtheme-brighttext:not([selected="true"]),
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-end:-moz-lwtheme-brighttext:not([selected="true"]) {
+  background-image: -moz-linear-gradient(hsla(0, 0%,40%,.6), hsla(0,0%,30%,.6) 50%);
 }
-.pano-tabgroup-tab[selected=true]:-moz-lwtheme {
-  background-image: -moz-linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.5) 50%);
-}
-.pano-tabgroup-tab:-moz-lwtheme-brighttext:not([selected=true]) {
-  background-image: -moz-linear-gradient(hsla(0,0%,40%,.6), hsla(0,0%,30%,.6) 80%);
-}
-.pano-tabgroup-tab:-moz-lwtheme-brighttext:not([selected=true]):hover {
-  background-image: -moz-linear-gradient(hsla(0,0%,60%,.6), hsla(0,0%,45%,.6) 80%);
-}
-.pano-tabgroup-tab:-moz-lwtheme-darktext:not([selected=true]) {
-  background-image: -moz-linear-gradient(hsla(0,0%,60%,.5), hsla(0,0%,45%,.5) 80%);
-}
-.pano-tabgroup-tab:-moz-lwtheme-darktext:not([selected=true]):hover {
-  background-image: -moz-linear-gradient(hsla(0,0%,80%,.5), hsla(0,0%,60%,.5) 80%);
-}
-.tabgroup-arrowscrollbox > .scrollbutton-up:-moz-lwtheme-brighttext,
-.tabgroup-arrowscrollbox > .scrollbutton-down:-moz-lwtheme-brighttext {
-  list-style-image: url(chrome://browser/skin/tabbrowser/tab-arrow-left-inverted.png);
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-start:-moz-lwtheme-darktext:not([selected="true"]),
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-middle:-moz-lwtheme-darktext:not([selected="true"]),
+.pano-tabgroup-tab > .tab-stack > .tab-background > .tab-background-end:-moz-lwtheme-darktext:not([selected="true"]) {
+  background-image: -moz-linear-gradient(hsla(0, 0%,60%,.5), hsla(0,0%,45%,.5) 50%);
 }
 #PanoToolbar_NewGroupButton:-moz-lwtheme-brighttext {
   list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);

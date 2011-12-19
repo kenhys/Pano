@@ -20,8 +20,14 @@
   padding: 2px 0 4px;
   -moz-border-image: url(chrome://browser/skin/tabbrowser/tab.png) 4 3 0 / 4px 3px 0 repeat stretch;
   border-radius: 0;
+}
+.pano-tabgroup-tab .tabgroup-icon-image {
+  width: 16px;
+  height: 16px;
   list-style-image: url("chrome://browser/skin/tabview/tabview.png");
   -moz-image-region: rect(1px, 35px, 16px, 19px);
+  -moz-margin-start: 2px;
+  -moz-margin-end: 3px;
 }
 .pano-tabgroup-tab:hover {
     background-image: -moz-linear-gradient(bottom, rgba(10%,10%,10%,.4) 1px, transparent 1px),
@@ -141,7 +147,7 @@
   color: inherit;
   background-color: transparent;
 }
-.pano-tabgroup-tab:-moz-lwtheme-brighttext {
+.pano-tabgroup-tab:-moz-lwtheme-brighttext .tabgroup-icon-image {
   list-style-image: url("chrome://browser/skin/tabview/tabview-inverted.png");
 }
 .pano-tabgroup-tab[selected=true]:-moz-lwtheme {
