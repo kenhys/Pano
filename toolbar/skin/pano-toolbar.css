@@ -126,7 +126,6 @@
 }
 
 #PanoTabGroupToolbar {
-  visibility: visible !important;
   -moz-box-ordinal-group: 95;
 }
 @media all and (-moz-windows-default-theme) {
