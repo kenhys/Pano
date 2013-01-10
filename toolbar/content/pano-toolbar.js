@@ -75,28 +75,16 @@ function getWindows (type) {
 (function init () {
   var bundle = Services.strings.createBundle("chrome://pano-toolbar/locale/toolbar.properties")
 
-  var xmlSettings = XML.settings();
-  XML.ignoreWhitespace = true;
-  XML.prettyPrinting = false;
   toolbarXML =
-  <toolbar id="PanoTabGroupToolbar"
-           class="toolbar-primary chromeclass-toolbar"
-           toolbarname={bundle.GetStringFromName("toolbarname")}
-           mode="icons"
-           defaulticonsize="small"
-           defaultset=""
-           costomizable="true"
-           context="toolbar-context-menu"
-           xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <tabs id="PanoTabGroupTabs" flex="1" setfocus="false">
-      <tab class="pano-tabgroup-tab"/>
-    </tabs>
-    <toolbarbutton id="PanoToolbar_NewGroupButton"
-                   class="toolbarbutton-1 tabs-newtab-button"
-                   oncommand="this.previousElementSibling.newGroup();"
-                   tooltiptext={bundle.GetStringFromName("newGroup.tooltip")} />
-  </toolbar>.toXMLString();
-  XML.setSettings(xmlSettings);
+  '<toolbar id="PanoTabGroupToolbar" class="toolbar-primary chromeclass-toolbar" ' +
+            'toolbarname="' + bundle.GetStringFromName("toolbarname") + '" ' +
+            'mode="icons" defaulticonsize="small" defaultset="" costomizable="true" context="toolbar-context-menu" ' +
+            'xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">' +
+    '<tabs id="PanoTabGroupTabs" flex="1" setfocus="false"><tab class="pano-tabgroup-tab"/></tabs>' +
+    '<toolbarbutton id="PanoToolbar_NewGroupButton" class="toolbarbutton-1 tabs-newtab-button" ' +
+                   'oncommand="this.previousElementSibling.newGroup();" ' +
+                   'tooltiptext="' + bundle.GetStringFromName("newGroup.tooltip") + '"/>' +
+  '</toolbar>';
 
   for (let win in Iterator(getWindows())) {
     initWindow(win);
